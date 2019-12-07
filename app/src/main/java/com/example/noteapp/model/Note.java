@@ -18,23 +18,23 @@ public class Note {
     private String mTitle;
 
     @ColumnInfo(name = "desc")
-    private String mDescription;
+    private String mContent;
 
     @NonNull
     @ColumnInfo(name = "published_on")
     private Date mNoteDate;
 
-    public Note( String title, String description, @NonNull Date noteDate){
+    public Note( String title, String content, @NonNull Date noteDate){
         this.mTitle = title;
-        this.mDescription = description;
+        this.mContent = content;
         this.mNoteDate = noteDate;
     }
 
     @Ignore
-    public Note(int id, String title, String description, @NonNull Date noteDate){
+    public Note(int id, String title, String content, @NonNull Date noteDate){
         this.id = id;
         this.mTitle = title;
-        this.mDescription = description;
+        this.mContent = content;
         this.mNoteDate = noteDate;
     }
 
@@ -50,12 +50,12 @@ public class Note {
         this.mTitle = mTitle;
     }
 
-    public String getDescription() {
-        return mDescription;
+    public String getContent() {
+        return mContent;
     }
 
-    public void setDescription(String mDescription) {
-        this.mDescription = mDescription;
+    public void setContent(String mContent) {
+        this.mContent = mContent;
     }
 
     public Date getNoteDate() {
