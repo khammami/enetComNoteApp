@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_DATA_UPDATE_DATE = "extra_date_to_be_updated";
     public static final String EXTRA_DATA_ID = "extra_data_id";
 
-    private NoteViewModel mWordViewModel;
+    private NoteViewModel mNoteViewModel;
     private AlertDialog.Builder mAlertBuilder;
 
     @Override
@@ -56,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Set up the WordViewModel.
-        mWordViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+        mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
         // Get all the words from the database
         // and associate them to the adapter.
-        mWordViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+        mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable final List<Note> notes) {
                 // Update the cached copy of the words in the adapter.
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                                                 getString(R.string.delete_word_preamble) + " " +
                                                         mNote.getTitle(), Toast.LENGTH_LONG).show();
                                         // Delete the word.
-                                        mWordViewModel.deleteNote(mNote);
+                                        mNoteViewModel.deleteNote(mNote);
                                     }
                                 });
 
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext()
                                     , R.string.clear_data_toast_text, Toast.LENGTH_LONG).show();
                             // Delete the existing data.
-                            mWordViewModel.deleteAll();
+                            mNoteViewModel.deleteAll();
                         }
                     });
 
@@ -189,24 +189,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Note note = new Note(data.getStringExtra(NewNoteActivity.EXTRA_REPLY_TITLE),
-                                    data.getStringExtra(NewNoteActivity.EXTRA_REPLY_CONTENT),
-                                    Converters.fromTimestamp(data.getLongExtra(NewNoteActivity.EXTRA_REPLY_DATE,0)));
-            // Save the data.
-            mWordViewModel.insert(note);
+            //TODO: toast for successful inset
         } else if (requestCode == UPDATE_NOTE_ACTIVITY_REQUEST_CODE
                 && resultCode == RESULT_OK) {
-            String title_data = data.getStringExtra(NewNoteActivity.EXTRA_REPLY_TITLE);
-            String content_data = data.getStringExtra(NewNoteActivity.EXTRA_REPLY_CONTENT);
-            Date date_data = Converters.fromTimestamp(data.getLongExtra(NewNoteActivity.EXTRA_REPLY_DATE,0));
-            int id = data.getIntExtra(NewNoteActivity.EXTRA_REPLY_ID, -1);
-
-            if (id != -1) {
-                mWordViewModel.update(new Note(id, title_data,content_data,date_data));
-            } else {
-                Toast.makeText(this, R.string.unable_to_update,
-                        Toast.LENGTH_LONG).show();
-            }
+            //TODO: Toast for successful update
         } else {
             Toast.makeText(
                     this, R.string.empty_not_saved, Toast.LENGTH_LONG).show();
@@ -215,9 +201,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchUpdateNoteActivity(Note note) {
         Intent intent = new Intent(this, NewNoteActivity.class);
-        intent.putExtra(EXTRA_DATA_UPDATE_TITLE, note.getTitle());
-        intent.putExtra(EXTRA_DATA_UPDATE_CONTENT, note.getContent());
-        intent.putExtra(EXTRA_DATA_UPDATE_DATE, Converters.dateToTimestamp(note.getNoteDate()));
         intent.putExtra(EXTRA_DATA_ID, note.getId());
         startActivityForResult(intent, UPDATE_NOTE_ACTIVITY_REQUEST_CODE);
     }

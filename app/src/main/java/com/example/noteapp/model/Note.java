@@ -24,6 +24,11 @@ public class Note {
     @ColumnInfo(name = "published_on")
     private Date mNoteDate;
 
+    @Ignore
+    public Note() {
+
+    }
+
     public Note( String title, String content, @NonNull Date noteDate){
         this.mTitle = title;
         this.mContent = content;

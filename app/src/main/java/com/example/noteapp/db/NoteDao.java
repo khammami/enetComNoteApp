@@ -24,12 +24,13 @@ public interface NoteDao {
     @Delete
     void deleteNote(Note note);
 
-    @Query("SELECT * from note_table LIMIT 1")
-    Note[] getAnyWord();
 
     @Query("SELECT * from note_table ORDER BY published_on DESC")
     LiveData<List<Note>> getAllNotes();
 
     @Update
     void update(Note... note);
+
+    @Query("SELECT * from note_table WHERE id = :id")
+    LiveData<Note> getNote(int id);
 }

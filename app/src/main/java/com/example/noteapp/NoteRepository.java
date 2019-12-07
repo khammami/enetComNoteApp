@@ -43,6 +43,10 @@ public class NoteRepository {
         new deleteNoteAsyncTask(mNoteDao).execute(note);
     }
 
+    public LiveData<Note> getNoteById(int id) {
+        return mNoteDao.getNote(id);
+    }
+
     // Static inner classes below here to run database interactions in the background.
 
     /**
