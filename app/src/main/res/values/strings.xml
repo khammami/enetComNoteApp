@@ -12,4 +12,9 @@
     <string name="datepicker">datePicker</string>
     <string name="ok_button">Confirm</string>
     <string name="cancel_button">Cancel</string>
+    <string name="card_title_placeholder">Title</string>
+    <string name="card_date_placeholder">Date</string>
+    <string name="card_content_placeholder">Content</string>
+    <string name="select_date_btn">Select Date</string>
+    <string name="default_date_placeholder">Default Date</string>
 </resources>
