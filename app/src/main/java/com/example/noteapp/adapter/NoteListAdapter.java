@@ -20,7 +20,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
     private List<Note> mNotes; // Cached copy of words
     private static ClickListener clickListener;
 
-    NoteListAdapter(Context context) {
+    public NoteListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
@@ -41,7 +41,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
         }
     }
 
-    void setNotes(List<Note> notes) {
+    public void setNotes(List<Note> notes) {
         mNotes = notes;
         notifyDataSetChanged();
     }
