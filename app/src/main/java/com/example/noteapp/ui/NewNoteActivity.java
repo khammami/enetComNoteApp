@@ -67,6 +67,7 @@ public class NewNoteActivity extends AppCompatActivity {
         if (mId == -1){
             mNote = new Note();
             mNote.setNoteDate(Calendar.getInstance().getTime());
+            populateUI(mNote);
         }else {
             mNewNoteViewModel.getNoteById(mId).observe(this, new Observer<Note>() {
                 @Override
