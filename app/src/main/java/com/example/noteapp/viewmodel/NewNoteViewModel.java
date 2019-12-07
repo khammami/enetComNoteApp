@@ -10,13 +10,10 @@ import com.example.noteapp.BasicApp;
 import com.example.noteapp.NoteRepository;
 import com.example.noteapp.model.Note;
 
-import java.util.List;
 
 public class NewNoteViewModel extends AndroidViewModel {
 
     private NoteRepository mRepository;
-
-    private LiveData<List<Note>> mAllNotes;
 
     public NewNoteViewModel(@NonNull Application application) {
         super(application);

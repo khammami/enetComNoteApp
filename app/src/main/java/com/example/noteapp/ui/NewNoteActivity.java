@@ -1,22 +1,20 @@
 package com.example.noteapp.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.noteapp.R;
-import com.example.noteapp.db.Converters;
 import com.example.noteapp.model.Note;
 import com.example.noteapp.viewmodel.NewNoteViewModel;
 
@@ -24,16 +22,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static com.example.noteapp.ui.MainActivity.EXTRA_DATA_ID;
-import static com.example.noteapp.ui.MainActivity.EXTRA_DATA_UPDATE_CONTENT;
-import static com.example.noteapp.ui.MainActivity.EXTRA_DATA_UPDATE_DATE;
-import static com.example.noteapp.ui.MainActivity.EXTRA_DATA_UPDATE_TITLE;
 
 public class NewNoteActivity extends AppCompatActivity {
-
-    public static final String EXTRA_REPLY_TITLE = "REPLY_TITLE";
-    public static final String EXTRA_REPLY_DATE = "REPLY_DATE";
-    public static final String EXTRA_REPLY_CONTENT = "REPLY_CONTENT";
-    public static final String EXTRA_REPLY_ID = "REPLY_ID";
 
     private EditText mEditTitleView;
     private EditText mEditContentView;

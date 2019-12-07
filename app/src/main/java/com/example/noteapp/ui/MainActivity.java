@@ -3,13 +3,10 @@ package com.example.noteapp.ui;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.noteapp.R;
-import com.example.noteapp.adapter.NoteListAdapter;
-import com.example.noteapp.db.Converters;
-import com.example.noteapp.model.Note;
-import com.example.noteapp.viewmodel.NoteViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -21,12 +18,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
+import com.example.noteapp.R;
+import com.example.noteapp.adapter.NoteListAdapter;
+import com.example.noteapp.model.Note;
+import com.example.noteapp.viewmodel.NoteViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int NEW_NOTE_ACTIVITY_REQUEST_CODE = 1;
     public static final int UPDATE_NOTE_ACTIVITY_REQUEST_CODE = 2;
 
-    public static final String EXTRA_DATA_UPDATE_TITLE = "extra_title_to_be_updated";
-    public static final String EXTRA_DATA_UPDATE_CONTENT = "extra_content_to_be_updated";
-    public static final String EXTRA_DATA_UPDATE_DATE = "extra_date_to_be_updated";
     public static final String EXTRA_DATA_ID = "extra_data_id";
 
     private NoteViewModel mNoteViewModel;
