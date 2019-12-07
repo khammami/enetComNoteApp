@@ -36,7 +36,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
         if (mNotes != null) {
             Note current = mNotes.get(position);
             holder.titleItemView.setText(current.getTitle());
-            holder.contentItemView.setText(current.getDescription());
+            holder.contentItemView.setText(current.getContent());
             holder.dateItemView.setText(current.getNoteDate().toString());
         }
     }

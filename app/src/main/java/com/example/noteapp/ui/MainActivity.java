@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
     private void launchUpdateNoteActivity(Note note) {
         Intent intent = new Intent(this, NewNoteActivity.class);
         intent.putExtra(EXTRA_DATA_UPDATE_TITLE, note.getTitle());
-        intent.putExtra(EXTRA_DATA_UPDATE_CONTENT, note.getDescription());
+        intent.putExtra(EXTRA_DATA_UPDATE_CONTENT, note.getContent());
         intent.putExtra(EXTRA_DATA_UPDATE_DATE, Converters.dateToTimestamp(note.getNoteDate()));
         intent.putExtra(EXTRA_DATA_ID, note.getId());
         startActivityForResult(intent, UPDATE_NOTE_ACTIVITY_REQUEST_CODE);
