@@ -17,7 +17,7 @@ public abstract class NoteRoomDataBase extends RoomDatabase {
 
     private static NoteRoomDataBase INSTANCE;
 
-    public static NoteRoomDataBase getDatabase(final Context context) {
+    public static NoteRoomDataBase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (NoteRoomDataBase.class) {
                 if (INSTANCE == null) {

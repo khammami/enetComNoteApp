@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.noteapp.BasicApp;
 import com.example.noteapp.NoteRepository;
 import com.example.noteapp.model.Note;
 
@@ -19,7 +20,7 @@ public class NewNoteViewModel extends AndroidViewModel {
 
     public NewNoteViewModel(@NonNull Application application) {
         super(application);
-        mRepository = new NoteRepository(application);
+        mRepository = ((BasicApp) application).getRepository();
     }
 
     public LiveData<Note> getNoteById(int id) {

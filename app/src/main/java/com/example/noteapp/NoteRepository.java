@@ -13,108 +13,73 @@ import java.util.List;
 
 public class NoteRepository {
 
-    private NoteDao mNoteDao;
+    private static NoteRepository sInstance;
+    private final AppExecutors mExecutors;
+
+    private final NoteRoomDataBase db;
     private LiveData<List<Note>> mAllNotes;
 
-    public NoteRepository(Application application) {
-        NoteRoomDataBase db = NoteRoomDataBase.getDatabase(application);
-        mNoteDao = db.noteDao();
-        mAllNotes = mNoteDao.getAllNotes();
+    public NoteRepository(NoteRoomDataBase database, AppExecutors executors) {
+        db = database;
+        mExecutors = executors;
+        mAllNotes = db.noteDao().getAllNotes();
+    }
+
+    public static NoteRepository getInstance(final NoteRoomDataBase database,
+                                             final AppExecutors executors) {
+        if (sInstance == null) {
+            synchronized (NoteRepository.class) {
+                if (sInstance == null) {
+                    sInstance = new NoteRepository(database, executors);
+                }
+            }
+        }
+        return sInstance;
     }
 
     public LiveData<List<Note>> getAllNotes() {
         return mAllNotes;
     }
 
-    public void insert(Note note) {
-        new insertAsyncTask(mNoteDao).execute(note);
+    public void insert(final Note note) {
+        mExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                db.noteDao().insert(note);
+            }
+        });
     }
 
-    public void update(Note note)  {
-        new updateNoteAsyncTask(mNoteDao).execute(note);
+    public void update(final Note note) {
+        mExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                db.noteDao().update(note);
+            }
+        });
     }
 
-    public void deleteAll()  {
-        new deleteAllNotesAsyncTask(mNoteDao).execute();
+    public void deleteAll() {
+        mExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                db.noteDao().deleteAll();
+            }
+        });
     }
 
     // Must run off main thread
-    public void deleteNote(Note note) {
-        new deleteNoteAsyncTask(mNoteDao).execute(note);
+    public void deleteNote(final Note note) {
+        mExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                db.noteDao().deleteNote(note);
+            }
+        });
     }
 
     public LiveData<Note> getNoteById(int id) {
-        return mNoteDao.getNote(id);
+        return db.noteDao().getNote(id);
     }
 
-    // Static inner classes below here to run database interactions in the background.
-
-    /**
-     * Inserts a note into the database.
-     */
-    private static class insertAsyncTask extends AsyncTask<Note, Void, Void> {
-
-        private NoteDao mAsyncTaskDao;
-
-        insertAsyncTask(NoteDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Note... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
-    }
-
-    /**
-     * Deletes all notes from the database (does not delete the table).
-     */
-    private static class deleteAllNotesAsyncTask extends AsyncTask<Void, Void, Void> {
-        private NoteDao mAsyncTaskDao;
-
-        deleteAllNotesAsyncTask(NoteDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            mAsyncTaskDao.deleteAll();
-            return null;
-        }
-    }
-
-    /**
-     *  Deletes a single note from the database.
-     */
-    private static class deleteNoteAsyncTask extends AsyncTask<Note, Void, Void> {
-        private NoteDao mAsyncTaskDao;
-
-        deleteNoteAsyncTask(NoteDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Note... params) {
-            mAsyncTaskDao.deleteNote(params[0]);
-            return null;
-        }
-    }
-
-    /**
-     *  Updates a note in the database.
-     */
-    private static class updateNoteAsyncTask extends AsyncTask<Note, Void, Void> {
-        private NoteDao mAsyncTaskDao;
-
-        updateNoteAsyncTask(NoteDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Note... params) {
-            mAsyncTaskDao.update(params[0]);
-            return null;
-        }
-    }
 }
