@@ -24,9 +24,6 @@ public interface NoteDao {
     @Delete
     void deleteNote(Note note);
 
-    @Query("SELECT * from note_table LIMIT 1")
-    Note[] getAnyWord();
-
     @Query("SELECT * from note_table ORDER BY published_on DESC")
     LiveData<List<Note>> getAllNotes();
 

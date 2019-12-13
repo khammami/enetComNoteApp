@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_DATA_UPDATE_DATE = "extra_date_to_be_updated";
     public static final String EXTRA_DATA_ID = "extra_data_id";
 
-    private NoteViewModel mWordViewModel;
+    private NoteViewModel mNoteViewModel;
     private AlertDialog.Builder mAlertBuilder;
 
     @Override
@@ -55,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Set up the WordViewModel.
-        mWordViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
-        // Get all the words from the database
+        // Set up the NoteViewModel.
+        mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+        // Get all the notes from the database
         // and associate them to the adapter.
-        mWordViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+        mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable final List<Note> notes) {
-                // Update the cached copy of the words in the adapter.
+                // Update the cached copy of the notes in the adapter.
                 adapter.setNotes(notes);
             }
         });
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    // When the use swipes a word,
-                    // delete that word from the database.
+                    // When the use swipes a note,
+                    // delete that note from the database.
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                         final int position = viewHolder.getAdapterPosition();
                         final Note mNote = adapter.getNoteAtPosition(position);
@@ -115,10 +115,10 @@ public class MainActivity extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Toast.makeText(MainActivity.this,
-                                                getString(R.string.delete_word_preamble) + " " +
+                                                getString(R.string.delete_note_preamble) + " " +
                                                         mNote.getTitle(), Toast.LENGTH_LONG).show();
-                                        // Delete the word.
-                                        mWordViewModel.deleteNote(mNote);
+                                        // Delete the note.
+                                        mNoteViewModel.deleteNote(mNote);
                                     }
                                 });
 
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext()
                                     , R.string.clear_data_toast_text, Toast.LENGTH_LONG).show();
                             // Delete the existing data.
-                            mWordViewModel.deleteAll();
+                            mNoteViewModel.deleteAll();
                         }
                     });
 
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                                     data.getStringExtra(NewNoteActivity.EXTRA_REPLY_CONTENT),
                                     Converters.fromTimestamp(data.getLongExtra(NewNoteActivity.EXTRA_REPLY_DATE,0)));
             // Save the data.
-            mWordViewModel.insert(note);
+            mNoteViewModel.insert(note);
         } else if (requestCode == UPDATE_NOTE_ACTIVITY_REQUEST_CODE
                 && resultCode == RESULT_OK) {
             String title_data = data.getStringExtra(NewNoteActivity.EXTRA_REPLY_TITLE);
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             int id = data.getIntExtra(NewNoteActivity.EXTRA_REPLY_ID, -1);
 
             if (id != -1) {
-                mWordViewModel.update(new Note(id, title_data,content_data,date_data));
+                mNoteViewModel.update(new Note(id, title_data,content_data,date_data));
             } else {
                 Toast.makeText(this, R.string.unable_to_update,
                         Toast.LENGTH_LONG).show();
