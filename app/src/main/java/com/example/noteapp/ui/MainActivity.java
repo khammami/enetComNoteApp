@@ -55,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Set up the WordViewModel.
+        // Set up the NoteViewModel.
         mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
-        // Get all the words from the database
+        // Get all the notes from the database
         // and associate them to the adapter.
         mNoteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable final List<Note> notes) {
-                // Update the cached copy of the words in the adapter.
+                // Update the cached copy of the notes in the adapter.
                 adapter.setNotes(notes);
             }
         });
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    // When the use swipes a word,
-                    // delete that word from the database.
+                    // When the use swipes a note,
+                    // delete that note from the database.
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                         final int position = viewHolder.getAdapterPosition();
                         final Note mNote = adapter.getNoteAtPosition(position);
@@ -115,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Toast.makeText(MainActivity.this,
-                                                getString(R.string.delete_word_preamble) + " " +
+                                                getString(R.string.delete_note_preamble) + " " +
                                                         mNote.getTitle(), Toast.LENGTH_LONG).show();
-                                        // Delete the word.
+                                        // Delete the note.
                                         mNoteViewModel.deleteNote(mNote);
                                     }
                                 });

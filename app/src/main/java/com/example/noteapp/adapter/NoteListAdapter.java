@@ -17,7 +17,7 @@ import java.util.List;
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteViewHolder> {
 
     private final LayoutInflater mInflater;
-    private List<Note> mNotes; // Cached copy of words
+    private List<Note> mNotes; // Cached copy of notes
     private static ClickListener clickListener;
 
     public NoteListAdapter(Context context) {
