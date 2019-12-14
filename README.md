@@ -14,17 +14,11 @@ The NoteApp app does the following:
 
 ## Application overview
 
-<img width="200" src="./assets/f5cc340a4ea5cc11.png">
-<img width="200" src="./assets/39d7bea764cc4a18.png">
-<img width="200" src="./assets/d471316b6021ef76.png">
+<img width="200" src="./assets/f5cc340a4ea5cc11.png"> <img width="200" src="./assets/39d7bea764cc4a18.png"> <img width="200" src="./assets/d471316b6021ef76.png">
 
-<img width="200" src="./assets/e6755adf6aaf8b1b.png">
-<img width="200" src="./assets/39d7bea764cc4a18.png">
-<img width="200" src="./assets/5ed9221134433d53.png">
+<img width="200" src="./assets/e6755adf6aaf8b1b.png"> <img width="200" src="./assets/39d7bea764cc4a18.png"> <img width="200" src="./assets/5ed9221134433d53.png">
 
-<img width="200" src="./assets/e040dec44838c86e.png">
-<img width="200" src="./assets/7762c8fdf68cc252.png">
-<img width="200" src="./assets/b4cf57c934657c45.png">
+<img width="200" src="./assets/e040dec44838c86e.png"> <img width="200" src="./assets/7762c8fdf68cc252.png"> <img width="200" src="./assets/b4cf57c934657c45.png">
  
 **Note**: Confirmation Alerts are optionals
 
