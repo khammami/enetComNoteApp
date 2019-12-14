@@ -1,6 +1,8 @@
 # NoteApp
 In this practical, you build an app that uses the [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html). The app, called NoteApp, stores a list of notes in a Room database and displays the list in a RecyclerView. The NoteApp app is basic, but sufficiently complete that you can use it as a template to build on.
+
 The NoteApp app does the following:
+
 * Works with a database to get and save notes
 * Displays all the notes in a RecyclerView in MainActivity.
 * Opens a second Activity when the user taps the + FAB button. When the user enters a note, the app adds the note to the database and then the list updates automatically.
